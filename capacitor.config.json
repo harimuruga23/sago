@@ -1,5 +1,5 @@
 {
-  "appId": "com.example.app",
+  "appId": "com.sago.app",
   "appName": "sago",
   "webDir": "dist",
   "bundledWebRuntime": false

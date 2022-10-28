@@ -131,6 +131,9 @@
       readonly
       background-color="light-green lighten-1"
     ></v-text-field>
+    <v-row col="12">
+      <v-btn color="primary" @click="triggerPrint()">PRINT</v-btn>
+    </v-row>
   </div>
 </template>
 
@@ -190,6 +193,10 @@ export default {
           this.idhara_selavu -
           this.advance
       );
+    },
+    triggerPrint() {
+      console.log("trigger print");
+      window.print();
     },
   },
 };
