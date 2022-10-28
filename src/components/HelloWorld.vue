@@ -1,58 +1,202 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
+  <div class="pa-10 wrap">
+    <v-text-field
+      outlined
+      v-model="muthal_idai"
+      label="முதல் எடை"
+      :dense="dense"
+      @keyup="calc()"
+    ></v-text-field>
+    <v-text-field
+      class="mt-md"
+      outlined
+      v-model="irandam_idai"
+      label="இரண்டாம் எடை"
+      @keyup="calc()"
+    ></v-text-field>
+    <v-text-field
+      class="mt-lg"
+      filled
+      v-model="nigara_idai"
+      label="நிகர எடை"
+      :dense="dense"
+      readonly
+    ></v-text-field>
+    <v-text-field
+      class="mt-xl"
+      outlined
+      v-model="man_kazhivu_sadhaveedham"
+      label="மண் கழிவு சதவீதம்"
+      :dense="dense"
+      @keyup="calc()"
+    ></v-text-field>
+    <v-text-field
+      class="mt-md"
+      filled
+      v-model="man_kazhivu"
+      label="மண் கழிவு"
+      :dense="dense"
+      readonly
+    ></v-text-field>
+    <v-text-field
+      class="mt-lg"
+      filled
+      v-model="motha_idai"
+      label="மொத்த எடை"
+      :dense="dense"
+      readonly
+    ></v-text-field>
+    <v-text-field
+      class="mt-xl"
+      outlined
+      v-model="point"
+      label="point"
+      :dense="dense"
+      @keyup="calc()"
+    ></v-text-field>
+    <v-text-field
+      class="mt-md"
+      outlined
+      v-model="point_vilai"
+      label="point விலை"
+      :dense="dense"
+      @keyup="calc()"
+    ></v-text-field>
+    <v-text-field
+      class="mt-md"
+      filled
+      v-model="oru_ton_vilai"
+      label="ஒரு டன்னிற்க்கான விலை"
+      :dense="dense"
+      @keyup="calc()"
+    ></v-text-field>
+    <v-text-field
+      class="mt-lg"
+      filled
+      v-model="pattiyal_1"
+      label="பட்டியல் 1"
+      :dense="dense"
+      readonly
+    ></v-text-field>
+    <v-text-field
+      v-model="iraku_koozhi"
+      class="mt-md"
+      filled
+      label="இறக்கு கூலி"
+      :dense="dense"
+      readonly
+    ></v-text-field>
+    <!-- @keyup="calc()" -->
+    <v-text-field
+      class="mt-lg"
+      filled
+      v-model="pattiyal_2"
+      label="பட்டியல் 2"
+      :dense="dense"
+      readonly
+    ></v-text-field>
+    <v-text-field
+      class="mt-xl"
+      standout="bg-teal text-white"
+      outlined
+      v-model="vadagai_vettukoozhi"
+      label="வாடகை + வெட்டுக்கூலி"
+      :dense="dense"
+      @keyup="calc()"
+    ></v-text-field>
+    <v-text-field
+      class="mt-md"
+      standout="bg-teal text-white"
+      outlined
+      v-model="idhara_selavu"
+      label="இதர செலவுகள்"
+      :dense="dense"
+      @keyup="calc()"
+    ></v-text-field>
+    <v-text-field
+      class="mt-md"
+      standout="bg-teal text-white"
+      outlined
+      v-model="advance"
+      label="advance"
+      :dense="dense"
+      @keyup="calc()"
+    ></v-text-field>
+    <v-text-field
+      class="mt-lg"
+      filled
+      v-model="this.motha_patiyal_thogai"
+      label="மொத்த பட்டியல் தொகை"
+      :dense="dense"
+      readonly
+      background-color="light-green lighten-1"
+    ></v-text-field>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'HelloWorld',
-  props: {
-    msg: String
-  }
-}
+  data() {
+    return {
+      muthal_idai: "",
+      irandam_idai: "",
+      nigara_idai: "",
+      man_kazhivu_sadhaveedham: "",
+      man_kazhivu: "",
+      motha_idai: "",
+      point: "",
+      point_vilai: "",
+      oru_ton_vilai: "",
+      pattiyal_1: "",
+      iraku_koozhi: 358,
+      pattiyal_2: "",
+      vadagai_vettukoozhi: "",
+      idhara_selavu: "",
+      advance: "",
+      motha_patiyal_thogai: "",
+      dense: false,
+    };
+  },
+  methods: {
+    calc() {
+      this.output_1();
+      this.man_kazhivuf();
+      this.output_3();
+      this.output_4();
+    },
+    output_1() {
+      this.nigara_idai = Math.ceil(this.muthal_idai - this.irandam_idai);
+    },
+    man_kazhivuf() {
+      this.man_kazhivu = Math.ceil(
+        this.nigara_idai * (this.man_kazhivu_sadhaveedham / 100)
+      );
+      this.motha_idai = Math.ceil(this.nigara_idai - this.man_kazhivu);
+    },
+
+    output_3() {
+      this.oru_ton_vilai = Math.ceil(this.point * this.point_vilai);
+      this.pattiyal_1 = Math.ceil(
+        (this.motha_idai * this.oru_ton_vilai) / 1000
+      );
+      this.iraku_koozhi = Math.ceil((this.motha_idai * 3) / 100);
+      this.pattiyal_2 = Math.ceil(this.pattiyal_1 - this.iraku_koozhi);
+    },
+
+    output_4() {
+      this.motha_patiyal_thogai = Math.ceil(
+        this.pattiyal_2 -
+          this.vadagai_vettukoozhi -
+          this.idhara_selavu -
+          this.advance
+      );
+    },
+  },
+};
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
+.wrap {
+  background-color: whitesmoke;
 }
 </style>
